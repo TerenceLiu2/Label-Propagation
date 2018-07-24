@@ -6,21 +6,29 @@ This repository implements LPA with `Python` and import `igraph` as visualizatio
 ## Operation Environment
 - python-igraph
 ## Data Input
- Node-Edge Information -- LPAdataset in this repository is an example. <br>
- The data structure is
+- data
+ We get some football match data like this.<br>
+ **All the group1 is number**
  ```
- node1  node2,node3,node4
- node2  node1,node3
- node3  node2,node1
- node4  node1
+ group1 g2,g3,g4...
+ group2 g1,g3....
+ ...
  ```
- **NAME MUST BE A NUMBER**
+- label
+ We have some label like this.<br>
+ ```
+ 0,missipi
+ 1,fox
+ ...
+ ```
+ **IT MUST START WITH 0**
+ 
  ## Data Ouput
  You will see two graph running this code.<br>
  The first graph is the nodes before classification.<br>
- ![image](https://github.com/TerenceLiu2/Label-Propagation-LPA-/blob/master/Img/igraphgTX0Pl.png)<br>
+ ![image](https://github.com/TerenceLiu2/Label-Propagation-LPA-/blob/master/Img/igraphv_QvzI.png)<br>
  The second is after the classfication.<br>
- ![image](https://github.com/TerenceLiu2/Label-Propagation-LPA-/blob/master/Img/igraphrHV9mk.png)<br>
+ ![image](https://github.com/TerenceLiu2/Label-Propagation-LPA-/blob/master/Img/igraphaoLkvj.png)<br>
  What's more, the `cluster` data will offer.
  ## Operation Instruction
  Prepare some datas,then run `Main.py`
