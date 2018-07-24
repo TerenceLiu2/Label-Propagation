@@ -133,7 +133,7 @@ def GraphAddEdge(data,num):
 def GraphColor(g,cluster):
     for vs in g.vs:
         vs['tag']=cluster[vs['no']]
-    color_s = ['blue', 'pink','green','black','purple','orange','brown','yellow','gold']
+    color_s = ['blue', 'pink','green','black','purple','orange','brown','yellow','gold','silver']
     color_l = []
     tmp = {g.vs['tag'][0]: 'red'}
     cot = -1
@@ -176,5 +176,5 @@ cluster=main(data,num)
 print cluster
 
 g2=GraphAddEdge(data,num)
-g2=GraphColor(g2,cluster,num)
+g2=GraphColor(g2,cluster)
 plot(g2,margin=20,bbox=(1000,1000))
