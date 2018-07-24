@@ -8,7 +8,7 @@ This repository implements LPA with `Python` and import `igraph` as visualizatio
 ## Data Input
 - data
  We get some football match data like this.<br>
- **All the group1 is number**
+ **All the groups are number**
  ```
  group1 g2,g3,g4...
  group2 g1,g3....
