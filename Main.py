@@ -151,6 +151,7 @@ g1=GraphAddEdge(data)
 plot(g1,margin=20,bbox=(500,500))
 
 cluster=main(data)
+print cluster
 
 g2=GraphAddEdge(data)
 g2=GraphColor(g2,cluster)
