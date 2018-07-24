@@ -16,7 +16,9 @@
  ## Data Ouput
  You will see two graph running this code.<br>
  The first graph is the nodes before classification.<br>
+ ![image](https://github.com/TerenceLiu2/Label-Propagation-LPA-/blob/master/Img/igraphgTX0Pl.png)<br>
  The second is after the classfication.<br>
+ ![image](https://github.com/TerenceLiu2/Label-Propagation-LPA-/blob/master/Img/igraphrHV9mk.png)<br>
  What's more, the `cluster` data will offer.
  ## Operation Instruction
  Prepare some datas,then run `Main.py`
