@@ -69,10 +69,8 @@ def updateShips(cluster,data):
     @:return 1 -- True 2 -- False
 '''
 def checkStatus(cluster,data):
-    flag = 0
     for d in data.keys():
         if cluster[d] != getMost(data[d]):
-
             return 0
     return 1
 
@@ -81,12 +79,13 @@ def checkStatus(cluster,data):
         主函数
     Input:
         LPAData node:[tag1,tag2...]
+        node num
     @:return
         cluster node1:class1,node2:class2....
 '''
-def main(mydata):
+def main(mydata,num):
     data = mydata.copy()
-    cluster = dict([(_,_) for _ in data.keys()])
+    cluster = dict([(str(_),str(_)) for _ in range(num)])
     #Initial tag
     while 1:
         if checkStatus(cluster,data):break
@@ -104,17 +103,21 @@ def main(mydata):
     Output:
         Graph with edges and label
 '''
-def GraphAddEdge(data):
-    num=len(data.keys())
-    g = Graph(len(data.keys()))
+def GraphAddEdge(data,num):
+    g = Graph(num)
+    key_list=labeldict.keys()
+    for i in  range(num):
+        g.vs[i]['no']=key_list[i]
+        g.vs[i]['name'] = labeldict[key_list[i]]
+        g.vs[i]['label']=g.vs[i]['name']
     for d in data.keys():
+        # print g.vs.select(no=d)[0].index
         for _ in data[d]:
             e_list = g.get_edgelist()
-            if (int(d) - 1, int(_) - 1) in e_list or (int(_) - 1, int(d) - 1) in e_list:
+            if (g.vs.select(no=d)[0].index, g.vs.select(no=_)[0].index) in e_list or (g.vs.select(no=_)[0].index, g.vs.select(no=d)[0].index) in e_list:
                 continue
             else:
-                g.add_edge(int(d) - 1, int(_) - 1)
-    g.vs['label'] = [i for i in range(1, 1+num)]
+                g.add_edge(g.vs.select(no=d)[0], g.vs.select(no=_)[0])
     return g
 
 '''
@@ -128,9 +131,9 @@ def GraphAddEdge(data):
         Graph with color
 '''
 def GraphColor(g,cluster):
-    node_num = len(data.keys())
-    g.vs['tag'] = [cluster[str(i)] for i in range(1, 1+node_num)]
-    color_s = ['blue', 'pink','green','black','purple']
+    for vs in g.vs:
+        vs['tag']=cluster[vs['no']]
+    color_s = ['blue', 'pink','green','black','purple','orange','brown','yellow','gold']
     color_l = []
     tmp = {g.vs['tag'][0]: 'red'}
     cot = -1
@@ -142,17 +145,36 @@ def GraphColor(g,cluster):
     g.vs['color'] = color_l
     return g
 
+'''
+    Func:
+        提取label字典
+    Input：
+        Label文件
+        0,l1
+        1,l2
+    Output:
+        label字典
+'''
+def LabelDict(labelname):
+    f = open(labelname, 'r')
+    data = {}
+    for i in f.readlines():
+        no, name = i.split(',')
+        data[no]=name.replace('\r\n','')
+    f.close()
+    return data
+
+num=115
+data = loadLpaData('data/football_data')
+labeldict=LabelDict('data/football_label.csv')
 
 
-data = loadLpaData('LPAdataset')
+g1=GraphAddEdge(data,num)
+plot(g1,margin=20,bbox=(1000,1000))
 
-g1=GraphAddEdge(data)
-
-plot(g1,margin=20,bbox=(500,500))
-
-cluster=main(data)
+cluster=main(data,num)
 print cluster
 
-g2=GraphAddEdge(data)
-g2=GraphColor(g2,cluster)
-plot(g2,margin=20,bbox=(500,500))
+g2=GraphAddEdge(data,num)
+g2=GraphColor(g2,cluster,num)
+plot(g2,margin=20,bbox=(1000,1000))
